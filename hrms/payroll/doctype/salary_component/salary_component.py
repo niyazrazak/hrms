@@ -1,7 +1,7 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
 
-
+import frappe
 from frappe.model.document import Document
 from frappe.model.naming import append_number_if_name_exists
 
@@ -9,6 +9,14 @@ from frappe.model.naming import append_number_if_name_exists
 class SalaryComponent(Document):
 	def validate(self):
 		self.validate_abbr()
+		self.set_tax_component()
+
+	def set_tax_component(self):
+		if self.is_income_tax_component:
+			self.variable_based_on_taxable_salary = 1
+
+	def on_update(self):
+		self.invalidate_cache()
 
 	def validate_abbr(self):
 		if not self.salary_component_abbr:
@@ -22,3 +30,6 @@ class SalaryComponent(Document):
 			separator="_",
 			filters={"name": ["!=", self.name]},
 		)
+
+	def invalidate_cache(self):
+		frappe.cache().delete_value("tax_components")

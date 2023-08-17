@@ -1,6 +1,5 @@
-import unittest
-
 import frappe
+from frappe.tests.utils import FrappeTestCase
 from frappe.utils import add_days, getdate
 
 from erpnext.setup.doctype.employee.test_employee import make_employee
@@ -10,11 +9,13 @@ from hrms.hr.doctype.full_and_final_statement.test_full_and_final_statement impo
 	create_full_and_final_statement,
 )
 from hrms.hr.report.employee_exits.employee_exits import execute
+from hrms.tests.test_utils import create_company
 
 
-class TestEmployeeExits(unittest.TestCase):
+class TestEmployeeExits(FrappeTestCase):
 	@classmethod
 	def setUpClass(cls):
+		super().setUpClass()
 		create_company()
 		frappe.db.sql("delete from `tabEmployee` where company='Test Company'")
 		frappe.db.sql("delete from `tabFull and Final Statement` where company='Test Company'")
@@ -232,15 +233,3 @@ class TestEmployeeExits(unittest.TestCase):
 		]
 
 		self.assertEqual(expected_data, report[1])  # rows
-
-
-def create_company():
-	if not frappe.db.exists("Company", "Test Company"):
-		frappe.get_doc(
-			{
-				"doctype": "Company",
-				"company_name": "Test Company",
-				"default_currency": "INR",
-				"country": "India",
-			}
-		).insert()

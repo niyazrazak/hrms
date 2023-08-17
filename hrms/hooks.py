@@ -12,7 +12,13 @@ required_apps = ["erpnext"]
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/hrms/css/hrms.css"
-app_include_js = "hrms.bundle.js"
+app_include_js = [
+	"hrms.bundle.js",
+	"performance.bundle.js",
+]
+app_include_css = "hrms.bundle.css"
+
+# website
 
 # include js, css files in header of web template
 # web_include_css = "/assets/hrms/css/hrms.css"
@@ -30,14 +36,14 @@ app_include_js = "hrms.bundle.js"
 
 # include js in doctype views
 doctype_js = {
-	"Employee": "public/js/employee.js",
-	"Company": "public/js/company.js",
-	"Department": "public/js/department.js",
-	"Timesheet": "public/js/timesheet.js",
-	"Payment Entry": "public/js/payment_entry.js",
-	"Journal Entry": "public/js/journal_entry.js",
-	"Delivery Trip": "public/js/deliver_trip.js",
-	"Bank Transaction": "public/js/bank_transaction.js",
+	"Employee": "public/js/erpnext/employee.js",
+	"Company": "public/js/erpnext/company.js",
+	"Department": "public/js/erpnext/department.js",
+	"Timesheet": "public/js/erpnext/timesheet.js",
+	"Payment Entry": "public/js/erpnext/payment_entry.js",
+	"Journal Entry": "public/js/erpnext/journal_entry.js",
+	"Delivery Trip": "public/js/erpnext/delivery_trip.js",
+	"Bank Transaction": "public/js/erpnext/bank_transaction.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -53,6 +59,8 @@ doctype_js = {
 # role_home_page = {
 # 	"Role": "home_page"
 # }
+
+calendars = ["Leave Application"]
 
 # Generators
 # ----------
@@ -85,6 +93,22 @@ after_migrate = "hrms.setup.update_select_perm_after_install"
 
 before_uninstall = "hrms.uninstall.before_uninstall"
 # after_uninstall = "hrms.uninstall.after_uninstall"
+
+# Integration Setup
+# ------------------
+# To set up dependencies/integrations with other apps
+# Name of the app being installed is passed as an argument
+
+# before_app_install = "hrms.utils.before_app_install"
+after_app_install = "hrms.setup.after_app_install"
+
+# Integration Cleanup
+# -------------------
+# To clean up dependencies/integrations with other apps
+# Name of the app being uninstalled is passed as an argument
+
+before_app_uninstall = "hrms.setup.before_app_uninstall"
+# after_app_uninstall = "hrms.utils.after_app_uninstall"
 
 # Desk Notifications
 # ------------------
@@ -212,7 +236,7 @@ bank_reconciliation_doctypes = ["Expense Claim"]
 # Testing
 # -------
 
-before_tests = "hrms.utils.before_tests"
+before_tests = "hrms.tests.test_utils.before_tests"
 
 # Overriding Methods
 # -----------------------------
