@@ -105,6 +105,7 @@ class Interview(Document):
 		)
 
 		if not cint(reminder_settings.send_interview_reminder):
+			frappe.msgprint(_("Interview Rescheduled successfully"), indicator="green")
 			return
 
 		try:
