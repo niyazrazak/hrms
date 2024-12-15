@@ -97,6 +97,16 @@ class Interview(Document):
 
 		recipients = get_recipients(self.name)
 
+		reminder_settings = frappe.db.get_value(
+			"HR Settings",
+			"HR Settings",
+			["send_interview_reminder"],
+			as_dict=True,
+		)
+
+		if not cint(reminder_settings.send_interview_reminder):
+			return
+
 		try:
 			frappe.sendmail(
 				recipients=recipients,
