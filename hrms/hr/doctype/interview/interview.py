@@ -97,14 +97,8 @@ class Interview(Document):
 
 		recipients = get_recipients(self.name)
 
-		reminder_settings = frappe.db.get_value(
-			"HR Settings",
-			"HR Settings",
-			["send_interview_reminder"],
-			as_dict=True,
-		)
-
-		if not cint(reminder_settings.send_interview_reminder):
+		if not cint(frappe.db.get_single_value("HR Settings", "send_interview_reminder")):
+			return
 			frappe.msgprint(_("Interview Rescheduled successfully"), indicator="green")
 			return
 
