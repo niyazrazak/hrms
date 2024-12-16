@@ -95,13 +95,11 @@ class Interview(Document):
 		self.db_set({"scheduled_on": scheduled_on, "from_time": from_time, "to_time": to_time})
 		self.notify_update()
 
-		recipients = get_recipients(self.name)
-
+		
+		frappe.msgprint(_("Interview Rescheduled successfully"), indicator="green")
 		if not cint(frappe.db.get_single_value("HR Settings", "send_interview_reminder")):
 			return
-			frappe.msgprint(_("Interview Rescheduled successfully"), indicator="green")
-			return
-
+		recipients = get_recipients(self.name)
 		try:
 			frappe.sendmail(
 				recipients=recipients,
@@ -124,7 +122,6 @@ class Interview(Document):
 				)
 			)
 
-		frappe.msgprint(_("Interview Rescheduled successfully"), indicator="green")
 
 
 @frappe.whitelist()
