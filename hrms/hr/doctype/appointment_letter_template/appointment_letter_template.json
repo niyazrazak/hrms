@@ -14,14 +14,14 @@
  "fields": [
   {
    "fieldname": "introduction",
-   "fieldtype": "Long Text",
+   "fieldtype": "Text Editor",
    "in_list_view": 1,
    "label": "Introduction",
    "reqd": 1
   },
   {
    "fieldname": "closing_notes",
-   "fieldtype": "Text",
+   "fieldtype": "Text Editor",
    "label": "Closing Notes"
   },
   {
@@ -40,7 +40,7 @@
   }
  ],
  "links": [],
- "modified": "2024-03-27 13:06:31.135009",
+ "modified": "2024-01-07 13:06:31.135009",
  "modified_by": "Administrator",
  "module": "HR",
  "name": "Appointment Letter Template",
