@@ -14,14 +14,14 @@
  "fields": [
   {
    "fieldname": "introduction",
-   "fieldtype": "Long Text",
+   "fieldtype": "Text Editor",
    "in_list_view": 1,
    "label": "Introduction",
    "reqd": 1
   },
   {
    "fieldname": "closing_notes",
-   "fieldtype": "Text",
+   "fieldtype": "Text Editor",
    "label": "Closing Notes"
   },
   {
